@@ -10,7 +10,8 @@ activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 appcompat = "1.7.0"
 material = "1.12.0"
-
+ktor = "3.1.2"
+serialization-json = "1.8.0"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -28,7 +29,11 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-android = { module = "io.ktor:ktor-client-android",version.ref ="ktor"}
+ktor-client-logging = { module = "io.ktor:ktor-client-logging",version.ref ="ktor"}
+ktor-client-serilization = { module = "io.ktor:ktor-client-serialization-jvm",version.ref ="ktor"}
+kotlin-serilization = {module = "org.jetbrains.kotlinx:kotlinx-serialization-json",version.ref = "serialization-json"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

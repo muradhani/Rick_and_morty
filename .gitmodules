@@ -1,6 +1,9 @@
 [submodule "network"]
 	path = network
 	url = https://github.com/muradhani/network
-[submodule "domian"]
-	path = domian
+[submodule "data"]
+	path = data
+	url = https://github.com/muradhani/Rick_and_morty_data.git
+[submodule "domain"]
+	path = domain
 	url = https://github.com/muradhani/Rick_and_morty_domain.git

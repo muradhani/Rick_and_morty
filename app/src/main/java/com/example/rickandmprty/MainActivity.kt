@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
             }
             val scope = rememberCoroutineScope()
             LaunchedEffect(key1 = Unit, block = {
-                character = ktorClient.getCharacter(1)
+//                character = ktorClient.getCharacter(1)
             })
             RickAndMprtyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->

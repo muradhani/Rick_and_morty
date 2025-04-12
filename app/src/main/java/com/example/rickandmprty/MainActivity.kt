@@ -4,45 +4,48 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.network.Character
+import androidx.core.view.WindowCompat
+import com.example.domain.modules.Character
+import com.example.domain.modules.Character.Location
+import com.example.domain.modules.Character.Origin
+import com.example.domain.modules.CharacterGender
+import com.example.domain.modules.CharacterStatus
 import com.example.network.KtorClient
+import com.example.rickandmprty.screens.CharacterDetailsScreen
 import com.example.rickandmprty.ui.theme.RickAndMprtyTheme
 
 class MainActivity : ComponentActivity() {
-    private val ktorClient = KtorClient()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            var character by remember {
-                mutableStateOf<Character?>(null)
-            }
-            val scope = rememberCoroutineScope()
-            LaunchedEffect(key1 = Unit, block = {
-//                character = ktorClient.getCharacter(1)
-            })
             RickAndMprtyTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                CharacterDetailsScreen(
+                    character =    Character(
+                        name = "Rick Sanchez",
+                        url = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                        species = "Human",
+                        id = 1,
+                        created = "2017-11-04T18:48:46.250Z",
+                        status= CharacterStatus.Alive,
+                        episode = listOf(),
+                        image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+                        type = "Human",
+                        gender = CharacterGender.Male,
+                        location = Location(
+                            name = "Citadel of Ricks",
+                            url = "https://rickandmortyapi.com/api/location/3"
+                        ),
+                        origin = Origin(
+                            name = "Earth (C-137)",
+                            url = "https://rickandmortyapi.com/api/location/1"
+                        )
                     )
-
-                    Text(text = character?.name ?:"no name")
-                }
+                )
             }
         }
     }

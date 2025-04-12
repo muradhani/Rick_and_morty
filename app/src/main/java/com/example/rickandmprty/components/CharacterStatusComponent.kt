@@ -5,9 +5,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -19,16 +22,14 @@ import com.example.domain.modules.CharacterStatus
 
 @Composable
 fun CharacterStatusComponent(characterStatus: CharacterStatus) {
-    Column(
+    Row(
         modifier = Modifier.width(IntrinsicSize.Min)
-
-            .border(width = 2.dp, color = androidx.compose.ui.graphics.Color(characterStatus.color), shape = RoundedCornerShape(12.dp))
-            .background(color = androidx.compose.ui.graphics.Color(Color.LTGRAY), shape = RoundedCornerShape(12.dp))
-            .padding(top = 12.dp, bottom = 12.dp, start = 12.dp, end = 48.dp)
+            .border(width = 1.dp, color = androidx.compose.ui.graphics.Color(characterStatus.color), shape = RoundedCornerShape(12.dp))
+            .background(color = androidx.compose.ui.graphics.Color(Color.TRANSPARENT), shape = RoundedCornerShape(12.dp))
+            .padding(top = 8.dp, bottom = 8.dp, start = 10.dp, end = 10.dp)
     ) {
-        Text(text = "Status", fontSize = 14.sp)
-        Text(text = characterStatus.displayName, fontSize = 24.sp, fontWeight = FontWeight.Bold)
-
+        Text(text = "Status: ", fontSize = 14.sp , modifier = Modifier.width(IntrinsicSize.Min))
+        Text(modifier = Modifier.width(IntrinsicSize.Min),text = characterStatus.displayName, fontSize = 14.sp, fontWeight = FontWeight.Bold)
     }
 
 }

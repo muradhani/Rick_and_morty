@@ -3,8 +3,8 @@
 	url = https://github.com/muradhani/network
 
 [submodule "data"]
-    path = data
-    url = https://github.com/muradhani/Rick_and_morty_data.git
+	path = data
+	url = https://github.com/muradhani/Rick_and_morty_data.git
 
 [submodule "domain"]
 	path = domain

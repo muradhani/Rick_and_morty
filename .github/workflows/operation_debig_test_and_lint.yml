@@ -7,9 +7,9 @@ on:
 jobs:
   lint :
     name : Lint Debug variant
-    uses: ./.github/workflows/job.test_debig.yml
+    uses: ./.github/workflows/job.test_debug.yml
 
   test:
     name : Test Debug Variant
-    uses: ./.github/workflows/job.test_debig.yml
+    uses: ./.github/workflows/job.test_debug.yml
     needs: lint

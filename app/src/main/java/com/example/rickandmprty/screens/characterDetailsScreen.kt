@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,16 +30,20 @@ import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun CharacterDetailsScreen(
-    id: Int
+    id: Int,
+    modifier: Modifier = Modifier
 ) {
     val viewModel: CharacterDetailsScreenViewModel = hiltViewModel()
     val character = viewModel.userData.collectAsStateWithLifecycle().value
     viewModel.getCharacterDetails(id)
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = RickPrimary
+    ) {
     character?.let {
         LazyColumn(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
-                .background(color = RickPrimary)
                 .padding(horizontal = 15.dp)
         ) {
             item {
@@ -46,7 +51,7 @@ fun CharacterDetailsScreen(
             }
             item {
                 Text(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(vertical = 10.dp),
                     text = character.name,
@@ -57,7 +62,7 @@ fun CharacterDetailsScreen(
 
             item {
                 AsyncImage(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 10.dp)
                         .aspectRatio(1f)
@@ -83,7 +88,7 @@ fun CharacterDetailsScreen(
             }
             item{
                 Button(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxWidth()
                         .padding(top = 20.dp),
                     shape = RoundedCornerShape(12.dp),
@@ -98,6 +103,7 @@ fun CharacterDetailsScreen(
                 }
             }
         }
+    }
     }
 }
 

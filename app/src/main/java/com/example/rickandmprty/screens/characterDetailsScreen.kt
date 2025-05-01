@@ -31,7 +31,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun CharacterDetailsScreen(
     id: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onEpisodeClick: (Int) -> Unit
 ) {
     val viewModel: CharacterDetailsScreenViewModel = hiltViewModel()
     val character = viewModel.userData.collectAsStateWithLifecycle().value
@@ -97,7 +98,7 @@ fun CharacterDetailsScreen(
                         containerColor = Color.Transparent,
                         contentColor = RickAction
                     ),
-                    onClick = { }
+                    onClick = {onEpisodeClick(character.id) }
                 ) {
                     Text(text = "View all episodes", color = RickAction , fontSize = 15.sp)
                 }

@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("org.jetbrains.kotlin.plugin.serialization")
+    id ("com.google.dagger.hilt.android")
+    id ("kotlin-kapt")
 }
 
 android {
@@ -59,6 +61,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(project(":network"))
     implementation(project(":domain"))
+    implementation(project(":data"))
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+
+    implementation ("com.google.dagger:hilt-android:2.56.2")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    kapt("com.google.dagger:hilt-compiler:2.56.2")
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3") // or latest
 }

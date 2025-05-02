@@ -1,7 +1,9 @@
 package com.example.rickandmprty.di
 
 import com.example.domain.interfaces.CharacterRepository
+import com.example.domain.interfaces.EpisodesRepository
 import com.example.domain.useCases.GetCharacterUseCase
+import com.example.domain.useCases.GetEpisodesUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +17,12 @@ object AppModule {
         repository: CharacterRepository
     ): GetCharacterUseCase {
         return GetCharacterUseCase(repository)
+    }
+
+    @Provides
+    fun provideGetEpisodesUseCase(
+        repository: EpisodesRepository
+    ): GetEpisodesUseCase {
+        return GetEpisodesUseCase(repository)
     }
 }

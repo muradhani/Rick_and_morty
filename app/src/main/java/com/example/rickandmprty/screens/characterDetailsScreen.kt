@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,14 +28,15 @@ import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun CharacterDetailsScreen(
     id: Int,
     modifier: Modifier = Modifier,
-    onEpisodeClick: (Int) -> Unit
+    viewModel: CharacterDetailsScreenViewModel,
+    onEpisodeClick: () -> Unit
 ) {
-    val viewModel: CharacterDetailsScreenViewModel = hiltViewModel()
     val character = viewModel.userData.collectAsStateWithLifecycle().value
     viewModel.getCharacterDetails(id)
     Surface(
@@ -98,7 +100,9 @@ fun CharacterDetailsScreen(
                         containerColor = Color.Transparent,
                         contentColor = RickAction
                     ),
-                    onClick = {onEpisodeClick(character.id) }
+                    onClick = {
+                        onEpisodeClick()
+                    }
                 ) {
                     Text(text = "View all episodes", color = RickAction , fontSize = 15.sp)
                 }
@@ -132,31 +136,3 @@ fun TitleAndSubtitle(
         )
     }
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun PreviewAliveStatus() {
-//    CharacterDetailsScreen(
-//        Character(
-//            name = "Rick Sanchez",
-//            url = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-//            species = "Human",
-//            id = 1,
-//            created = "2017-11-04T18:48:46.250Z",
-//            status= CharacterStatus.Alive,
-//            episode = listOf(),
-//            image = "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-//            type = "Human",
-//            gender = CharacterGender.Male,
-//            location = Location(
-//                name = "Citadel of Ricks",
-//                url = "https://rickandmortyapi.com/api/location/3"
-//            ),
-//            origin = Origin(
-//                name = "Earth (C-137)",
-//                url = "https://rickandmortyapi.com/api/location/1"
-//            )
-//        )
-//
-//    )
-//}

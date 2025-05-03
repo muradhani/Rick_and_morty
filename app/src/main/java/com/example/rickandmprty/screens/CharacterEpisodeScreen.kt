@@ -52,7 +52,11 @@ fun CharacterEpisodeScreen(
         color = RickPrimary
     ) {
         character?.let {
-            LazyColumn {
+            LazyColumn (
+                    modifier = modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 15.dp)
+                    ) {
                 item {
                     CharacterName(
                         name = character.name,

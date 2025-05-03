@@ -27,6 +27,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.domain.modules.Episode
+import com.example.rickandmprty.components.CharacterImage
+import com.example.rickandmprty.components.CharacterName
+import com.example.rickandmprty.components.TitleAndSubtitle
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
 import com.example.rickandmprty.ui.theme.RickTextPrimary
@@ -37,6 +40,7 @@ import com.example.rickandmprty.viewmodels.EpisodesScreenViewModel
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharacterEpisodeScreen(
+    modifier: Modifier,
     characterViewModel: CharacterDetailsScreenViewModel
 ) {
     val character = characterViewModel.userData.collectAsStateWithLifecycle().value
@@ -50,29 +54,20 @@ fun CharacterEpisodeScreen(
         character?.let {
             LazyColumn {
                 item {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        text = character.name,
-                        style = MaterialTheme.typography.headlineLarge,
-                        color = RickAction
+                    CharacterName(
+                        name = character.name,
+                        modifier = modifier.fillMaxWidth()
+                            .padding(top = 10.dp),
                     )
                 }
-                item { Spacer(modifier = Modifier.height(16.dp)) }
                 item {
-                    AsyncImage(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 10.dp)
-                            .aspectRatio(1f)
-                            .clip(RoundedCornerShape(12.dp)),
-                        model = character.image,
-                        contentDescription = null
+                    CharacterImage(
+                        url = character.image
                     )
                 }
                 episodes?.let {
                     it.groupBy { it.seasonNumber }.forEach {
+                        item { Spacer(modifier = Modifier.height(30.dp)) }
                         stickyHeader { SeasonHeader(seasonNumber = it.key) }
                         items(episodes) { episode ->
                             EpisodeRow(episode = episode)
@@ -87,21 +82,26 @@ fun CharacterEpisodeScreen(
 @Composable
 fun EpisodeRow(episode: Episode) {
     Row(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth().padding(vertical = 10.dp)
     ) {
         Column(
             modifier = Modifier.weight(1f)
         ) {
-            Text(text = "Episode")
-            Text(text = episode.episodeNumber)
+            TitleAndSubtitle(title = "Episode", subTitle = episode.episodeNumber, isEpisodeNameAndAirTime = false)
         }
 
         Column(
             modifier = Modifier.weight(1f),
             horizontalAlignment = Alignment.End
         ) {
-            Text(text = episode.name)
-            Text(text = episode.airDate)
+            TitleAndSubtitle(
+                title = episode.name,
+                subTitle = episode.airDate,
+                titleColor = RickTextPrimary,
+                subtitleColor = RickTextPrimary,
+                isEpisodeNameAndAirTime = true,
+                alignEnd = true
+            )
         }
     }
 }
@@ -117,7 +117,8 @@ fun SeasonHeader(seasonNumber: Int) {
             shape = RoundedCornerShape(8.dp)
         ).padding(vertical = 8.dp),
         fontSize = 32.sp,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        color = RickTextPrimary
     )
 
 }

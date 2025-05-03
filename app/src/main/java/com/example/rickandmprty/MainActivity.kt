@@ -47,7 +47,10 @@ class MainActivity : ComponentActivity() {
                             val viewModel : CharacterDetailsScreenViewModel = if (navController.previousBackStackEntry != null) hiltViewModel(
                                 navController.previousBackStackEntry!!
                             ) else hiltViewModel()
-                            CharacterEpisodeScreen(viewModel)
+                            CharacterEpisodeScreen(
+                                modifier = Modifier.padding(innerPadding),
+                                viewModel
+                            )
                         }
                     }
                 }

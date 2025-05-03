@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -27,8 +26,7 @@ import com.example.rickandmprty.components.CharacterStatusComponent
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
-import androidx.hilt.navigation.compose.hiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
+
 
 @Composable
 fun CharacterDetailsScreen(

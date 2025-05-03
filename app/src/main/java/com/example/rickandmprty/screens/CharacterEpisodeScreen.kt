@@ -1,5 +1,7 @@
 package com.example.rickandmprty.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,17 +20,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.domain.modules.Episode
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
+import com.example.rickandmprty.ui.theme.RickTextPrimary
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
 import com.example.rickandmprty.viewmodels.EpisodesScreenViewModel
 
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CharacterEpisodeScreen(
     characterViewModel: CharacterDetailsScreenViewModel
@@ -66,8 +72,11 @@ fun CharacterEpisodeScreen(
                     )
                 }
                 episodes?.let {
-                    items(episodes) { episode ->
-                        EpisodeRow(episode = episode)
+                    it.groupBy { it.seasonNumber }.forEach {
+                        stickyHeader { SeasonHeader(seasonNumber = it.key) }
+                        items(episodes) { episode ->
+                            EpisodeRow(episode = episode)
+                        }
                     }
                 }
             }
@@ -95,4 +104,20 @@ fun EpisodeRow(episode: Episode) {
             Text(text = episode.airDate)
         }
     }
+}
+
+@Composable
+fun SeasonHeader(seasonNumber: Int) {
+    Text(
+        text = "Season $seasonNumber",
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.fillMaxWidth().border(
+            width = 1.dp,
+            color = RickTextPrimary,
+            shape = RoundedCornerShape(8.dp)
+        ).padding(vertical = 8.dp),
+        fontSize = 32.sp,
+        textAlign = TextAlign.Center
+    )
+
 }

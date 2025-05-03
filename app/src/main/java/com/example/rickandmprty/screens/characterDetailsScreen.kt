@@ -22,6 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
+import com.example.rickandmprty.components.CharacterImage
+import com.example.rickandmprty.components.CharacterName
 import com.example.rickandmprty.components.CharacterStatusComponent
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
@@ -51,25 +53,16 @@ fun CharacterDetailsScreen(
                 CharacterStatusComponent(character.status)
             }
             item {
-                Text(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp),
-                    text = character.name,
-                    style = MaterialTheme.typography.headlineLarge,
-                    color = RickAction
+                CharacterName(
+                    name = character.name,
+                    modifier = modifier.fillMaxWidth()
+                    .padding(vertical = 10.dp),
                 )
             }
 
             item {
-                AsyncImage(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp)
-                        .aspectRatio(1f)
-                        .clip(RoundedCornerShape(12.dp)),
-                    model = character.image,
-                    contentDescription = null
+                CharacterImage(
+                    url = character.image
                 )
             }
             item{

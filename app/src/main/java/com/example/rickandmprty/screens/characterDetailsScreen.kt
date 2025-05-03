@@ -25,6 +25,7 @@ import coil3.compose.AsyncImage
 import com.example.rickandmprty.components.CharacterImage
 import com.example.rickandmprty.components.CharacterName
 import com.example.rickandmprty.components.CharacterStatusComponent
+import com.example.rickandmprty.components.TitleAndSubtitle
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
@@ -100,30 +101,5 @@ fun CharacterDetailsScreen(
             }
         }
     }
-    }
-}
-
-@Composable
-fun TitleAndSubtitle(
-    title : String,
-    subTitle : String
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 20.dp),
-            text = title,
-            style = MaterialTheme.typography.bodyMedium,
-            color = RickAction
-        )
-        Text(
-            modifier = Modifier.fillMaxWidth(),
-            text = subTitle,
-            style = MaterialTheme.typography.headlineSmall,
-            color = Color.White
-        )
     }
 }

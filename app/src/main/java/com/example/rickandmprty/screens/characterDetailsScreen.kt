@@ -3,9 +3,11 @@ package com.example.rickandmprty.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -57,7 +59,6 @@ fun CharacterDetailsScreen(
                 CharacterName(
                     name = character.name,
                     modifier = modifier.fillMaxWidth()
-                    .padding(vertical = 10.dp),
                 )
             }
 
@@ -65,6 +66,9 @@ fun CharacterDetailsScreen(
                 CharacterImage(
                     url = character.image
                 )
+            }
+            item{
+                Spacer(modifier = modifier.height(10.dp))
             }
             item{
                 TitleAndSubtitle("Last Known Location" , character.location.name)

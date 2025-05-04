@@ -73,7 +73,7 @@ fun CharacterEpisodeScreen(
                     it.groupBy { it.seasonNumber }.forEach {
                         item { Spacer(modifier = Modifier.height(30.dp)) }
                         stickyHeader { SeasonHeader(seasonNumber = it.key) }
-                        items(episodes) { episode ->
+                        items(it.value) { episode ->
                             EpisodeRow(episode = episode)
                         }
                     }

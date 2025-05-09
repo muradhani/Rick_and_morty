@@ -10,13 +10,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,8 +51,11 @@ fun CharacterEpisodeScreen(
 ) {
     val character = characterViewModel.userData.collectAsStateWithLifecycle().value
     val viewModel: EpisodesScreenViewModel = hiltViewModel()
-    character?.let { viewModel.getEpisodes(it.episode)}
-        val episodes = viewModel.episodes.collectAsStateWithLifecycle().value
+    LaunchedEffect(character?.episode) { character?.let { viewModel.getEpisodes(it.episode) } }
+    val episodes = viewModel.episodes.collectAsStateWithLifecycle().value
+    val episodeBySeasonMap = remember(episodes) {
+        episodes?.groupBy { it.seasonNumber }
+    }
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = RickPrimary
@@ -64,16 +73,26 @@ fun CharacterEpisodeScreen(
                             .padding(top = 10.dp),
                     )
                 }
+                item{
+                    LazyRow {
+                        episodeBySeasonMap?.forEach {
+                            val title = "Season ${it.key}"
+                            val description = "${it.value.size} ep"
+                            item{TitleAndSubtitle(title = title, subTitle = description)}
+                            item { Spacer(modifier = Modifier.width(20.dp)) }
+                        }
+                    }
+                }
                 item {
                     CharacterImage(
                         url = character.image
                     )
                 }
                 episodes?.let {
-                    it.groupBy { it.seasonNumber }.forEach {
+                    episodeBySeasonMap?.forEach { episode ->
                         item { Spacer(modifier = Modifier.height(30.dp)) }
-                        stickyHeader { SeasonHeader(seasonNumber = it.key) }
-                        items(it.value) { episode ->
+                        stickyHeader { SeasonHeader(seasonNumber = episode.key) }
+                        items(episode.value) { episode ->
                             EpisodeRow(episode = episode)
                         }
                     }

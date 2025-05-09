@@ -19,11 +19,8 @@ class EpisodesScreenViewModel @Inject constructor(
     var episodes: StateFlow<List<Episode>?> = _episodes
     fun getEpisodes(episodeIds: List<String>){
         viewModelScope.launch {
-            _episodes.value = getEpisodesUseCase(extractEpsiodesIds(episodeIds))
+            _episodes.value = getEpisodesUseCase(episodeIds)
 
         }
-    }
-    fun extractEpsiodesIds(episodeUrls: List<String>): String {
-        return episodeUrls.joinToString(",") { it.substringAfterLast("/") }
     }
 }

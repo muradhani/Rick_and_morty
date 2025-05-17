@@ -9,13 +9,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 
+val deafultModifier = Modifier
+    .fillMaxWidth()
+    .aspectRatio(1f)
+    .clip(RoundedCornerShape(12.dp))
 @Composable
-fun CharacterImage(modifier: Modifier = Modifier,url:String) {
+fun CharacterImage(modifier: Modifier = deafultModifier,url:String) {
     AsyncImage(
-        modifier = modifier
-            .fillMaxWidth()
-            .aspectRatio(1f)
-            .clip(RoundedCornerShape(12.dp)),
+        modifier = modifier,
         model = url,
         contentDescription = null
     )

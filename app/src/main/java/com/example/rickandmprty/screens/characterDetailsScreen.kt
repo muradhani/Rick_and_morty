@@ -25,9 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.rickandmprty.components.CharacterImage
+import com.example.rickandmprty.components.CharacterInfoSection
 import com.example.rickandmprty.components.CharacterName
 import com.example.rickandmprty.components.CharacterStatusComponent
 import com.example.rickandmprty.components.TitleAndSubtitle
+import com.example.rickandmprty.components.buildCharacterInfoItems
 import com.example.rickandmprty.ui.theme.RickAction
 import com.example.rickandmprty.ui.theme.RickPrimary
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
@@ -70,20 +72,11 @@ fun CharacterDetailsScreen(
             item{
                 Spacer(modifier = modifier.height(10.dp))
             }
-            item{
-                TitleAndSubtitle("Last Known Location" , character.location.name)
-            }
-            item{
-                TitleAndSubtitle("Species" , character.species)
-            }
-            item{
-                TitleAndSubtitle("Gender" , character.gender.displayName)
-            }
-            item{
-                TitleAndSubtitle("Origin" , character.origin.name)
-            }
-            item{
-                TitleAndSubtitle("Episode count" , character.episode.count().toString())
+            item {
+                CharacterInfoSection(
+                    items = buildCharacterInfoItems(character),
+                    modifier = modifier
+                )
             }
             item{
                 Button(

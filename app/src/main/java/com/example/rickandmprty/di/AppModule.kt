@@ -4,6 +4,7 @@ import com.example.domain.interfaces.CharacterRepository
 import com.example.domain.interfaces.EpisodesRepository
 import com.example.domain.useCases.GetCharacterUseCase
 import com.example.domain.useCases.GetEpisodesUseCase
+import com.example.domain.useCases.getCharacterPaging
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +25,12 @@ object AppModule {
         repository: EpisodesRepository
     ): GetEpisodesUseCase {
         return GetEpisodesUseCase(repository)
+    }
+
+    @Provides
+    fun provideGetEpisodesPagingUseCase(
+        repository: CharacterRepository
+    ): getCharacterPaging {
+        return getCharacterPaging(repository)
     }
 }

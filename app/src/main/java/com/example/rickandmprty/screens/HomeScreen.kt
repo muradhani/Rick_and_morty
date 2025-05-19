@@ -15,10 +15,15 @@ fun HomeScreen(
     viewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val character = viewModel.characters.collectAsStateWithLifecycle().value
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = RickPrimary
     ) {
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
 
+        }
     }
 }

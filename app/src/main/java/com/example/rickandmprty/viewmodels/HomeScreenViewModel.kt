@@ -25,4 +25,5 @@ class HomeScreenViewModel @Inject constructor(
             _characters.update { newPage }
         }
     }
+    t
 }

@@ -17,6 +17,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.rickandmprty.screens.CharacterDetailsScreen
 import com.example.rickandmprty.screens.CharacterEpisodeScreen
+import com.example.rickandmprty.screens.HomeScreen
 import com.example.rickandmprty.ui.theme.RickAndMprtyTheme
 import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     contentWindowInsets = WindowInsets.systemBars // This handles it automatically
                 ) { innerPadding ->
-                    NavHost(navController = navController, startDestination = "character_details"){
+                    NavHost(navController = navController, startDestination = "characters_page"){
                         composable("character_details"){ backStackEntry ->
                             val viewModel : CharacterDetailsScreenViewModel = hiltViewModel(backStackEntry)
                             CharacterDetailsScreen(
@@ -51,6 +52,9 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.padding(innerPadding),
                                 viewModel
                             )
+                        }
+                        composable("characters_page"){
+                            HomeScreen()
                         }
                     }
                 }

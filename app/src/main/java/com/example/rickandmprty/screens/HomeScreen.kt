@@ -1,6 +1,8 @@
 package com.example.rickandmprty.screens
 
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -16,6 +18,9 @@ import com.example.rickandmprty.viewmodels.HomeScreenViewModel
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshotFlow
+import androidx.compose.ui.unit.dp
 import com.example.rickandmprty.components.CharacterListItem
 
 
@@ -26,16 +31,18 @@ fun HomeScreen(
     val characters = viewModel.characters.collectAsStateWithLifecycle().value
     LaunchedEffect(key1 = viewModel, block = {viewModel.getCharacters(1)})
     val scrollStateCharacters = rememberLazyGridState()
-    var loadNextPage = remember {
-        derivedStateOf {
-            val visibleItemPosition = scrollStateCharacters.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: return@derivedStateOf false
-            val charactersCount = characters?.size ?: return@derivedStateOf false
-            visibleItemPosition >= charactersCount - 10
+
+    LaunchedEffect(scrollStateCharacters) {
+        snapshotFlow {
+            val lastVisibleIndex = scrollStateCharacters.layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+            val totalItemsCount = scrollStateCharacters.layoutInfo.totalItemsCount
+            lastVisibleIndex to totalItemsCount
+        }.collect { (lastVisibleIndex, totalItemsCount) ->
+            if (lastVisibleIndex >= totalItemsCount - 5 && totalItemsCount > 0) {
+                viewModel.getNextCharactersPage()
+            }
         }
     }
-    LaunchedEffect(key1 = loadNextPage, block = {
-        if (loadNextPage.value) viewModel.getNextCharactersPage()
-    })
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -46,6 +53,9 @@ fun HomeScreen(
                 modifier = Modifier.fillMaxSize(),
                 state = scrollStateCharacters,
                 columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(10.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ){
                 items(characters) { character ->
                     CharacterListItem(character = character , onClick = {})

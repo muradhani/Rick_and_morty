@@ -32,7 +32,10 @@ class HomeScreenViewModel @Inject constructor(
             pageNumber += 1
             val newCharactersPage = getCharactersPaging(pageNumber)
             newCharactersPage?.let { newPage ->
-                _characters.update { newPage }
+                _characters.update { currentList ->
+                    val updatedList = currentList.orEmpty() + newPage
+                    updatedList
+                }
             }
         }
     }

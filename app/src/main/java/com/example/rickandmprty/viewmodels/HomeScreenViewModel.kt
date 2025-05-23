@@ -5,10 +5,12 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.modules.Character
 import com.example.domain.useCases.GetCharacterPagingUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import okhttp3.Dispatcher
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +22,7 @@ class HomeScreenViewModel @Inject constructor(
     private var pageNumber = 1
 
      fun getCharacters(pageNumber:Int){
-        viewModelScope.launch{
+        viewModelScope.launch(Dispatchers.IO){
             val newCharactersPage = getCharactersPaging(pageNumber)
             newCharactersPage?.let { newPage ->
                 _characters.update { newPage }

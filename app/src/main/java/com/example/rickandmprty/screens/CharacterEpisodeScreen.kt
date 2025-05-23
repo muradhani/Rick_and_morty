@@ -69,7 +69,7 @@ fun CharacterEpisodeScreen(
                 item {
                     CharacterName(
                         name = character.name,
-                        modifier = modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth()
                             .padding(top = 10.dp),
                     )
                 }

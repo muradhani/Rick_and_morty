@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import com.example.rickandmprty.components.CharacterImage
@@ -40,9 +41,9 @@ import com.example.rickandmprty.viewmodels.CharacterDetailsScreenViewModel
 fun CharacterDetailsScreen(
     id: Int,
     modifier: Modifier = Modifier,
-    viewModel: CharacterDetailsScreenViewModel,
-    onEpisodeClick: () -> Unit
-) {
+    viewModel: CharacterDetailsScreenViewModel = hiltViewModel(),
+    onEpisodeClick: () -> Unit,
+){
     val character = viewModel.userData.collectAsStateWithLifecycle().value
 
     LaunchedEffect(id) {
@@ -65,7 +66,7 @@ fun CharacterDetailsScreen(
             item {
                 CharacterName(
                     name = character.name,
-                    modifier = modifier.fillMaxWidth()
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
 
@@ -75,17 +76,17 @@ fun CharacterDetailsScreen(
                 )
             }
             item{
-                Spacer(modifier = modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
             }
             item {
                 CharacterInfoSection(
                     items = buildCharacterInfoItems(character),
-                    modifier = modifier
+                    modifier = Modifier
                 )
             }
             item{
                 Button(
-                    modifier = modifier
+                    modifier = Modifier
                         .fillMaxWidth()
                         .padding(top = 20.dp),
                     shape = RoundedCornerShape(12.dp),

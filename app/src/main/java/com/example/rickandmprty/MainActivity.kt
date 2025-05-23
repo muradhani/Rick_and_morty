@@ -34,10 +34,11 @@ class MainActivity : ComponentActivity() {
                     contentWindowInsets = WindowInsets.systemBars // This handles it automatically
                 ) { innerPadding ->
                     NavHost(navController = navController, startDestination = "characters_page"){
-                        composable("character_details"){ backStackEntry ->
+                        composable("character_details/{characterId}"){ backStackEntry ->
                             val viewModel : CharacterDetailsScreenViewModel = hiltViewModel(backStackEntry)
+                            val characterId = backStackEntry.arguments?.getString("characterId")?.toInt() ?: 0
                             CharacterDetailsScreen(
-                                id = 175,
+                                id = characterId,
                                 viewModel = viewModel,
                                 modifier = Modifier.padding(innerPadding)
                             ){
@@ -54,7 +55,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("characters_page"){
-                            HomeScreen()
+                            HomeScreen(onCharacterClick = {
+                                navController.navigate("character_details/$it")
+                            })
                         }
                     }
                 }

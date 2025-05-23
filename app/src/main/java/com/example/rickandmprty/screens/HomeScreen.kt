@@ -26,7 +26,8 @@ import com.example.rickandmprty.components.CharacterListItem
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeScreenViewModel = hiltViewModel()
+    viewModel: HomeScreenViewModel = hiltViewModel(),
+    onCharacterClick : (Int) -> Unit
 ) {
     val characters = viewModel.characters.collectAsStateWithLifecycle().value
     LaunchedEffect(key1 = viewModel, block = {viewModel.getCharacters(1)})
@@ -58,7 +59,9 @@ fun HomeScreen(
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ){
                 items(characters) { character ->
-                    CharacterListItem(character = character , onClick = {})
+                    CharacterListItem(character = character , onClick = {
+                        onCharacterClick(character.id)
+                    })
                 }
             }
         }

@@ -19,6 +19,8 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.unit.dp
 import com.example.rickandmprty.components.CharacterListItem
@@ -30,7 +32,15 @@ fun HomeScreen(
     onCharacterClick : (Int) -> Unit
 ) {
     val characters = viewModel.characters.collectAsStateWithLifecycle().value
-    LaunchedEffect(key1 = viewModel, block = {viewModel.getCharacters(1)})
+    val hasLoadedCharacters = rememberSaveable { mutableStateOf(false) }
+
+    LaunchedEffect(hasLoadedCharacters.value) {
+        if (!hasLoadedCharacters.value) {
+            viewModel.getCharacters(1)
+            hasLoadedCharacters.value = true
+        }
+    }
+
     val scrollStateCharacters = rememberLazyGridState()
 
     LaunchedEffect(scrollStateCharacters) {

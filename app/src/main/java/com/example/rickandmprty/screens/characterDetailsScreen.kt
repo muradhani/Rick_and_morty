@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -43,7 +44,11 @@ fun CharacterDetailsScreen(
     onEpisodeClick: () -> Unit
 ) {
     val character = viewModel.userData.collectAsStateWithLifecycle().value
-    viewModel.getCharacterDetails(id)
+
+    LaunchedEffect(id) {
+        viewModel.getCharacterDetails(id)
+    }
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = RickPrimary

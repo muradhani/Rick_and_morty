@@ -35,7 +35,7 @@ fun CharacterListItem(
             shape = RoundedCornerShape(12.dp)
         )
             .clip(RoundedCornerShape(12.dp))
-            .clickable{onClick}
+            .clickable{onClick()}
     ) {
         Box{
             CharacterImage(url = character.image)

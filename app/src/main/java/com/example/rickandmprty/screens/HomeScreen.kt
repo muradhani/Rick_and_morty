@@ -43,7 +43,7 @@ fun HomeScreen(
             }
         }
     }
-        .
+
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = RickPrimary
